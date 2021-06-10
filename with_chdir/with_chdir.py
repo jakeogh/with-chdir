@@ -45,6 +45,7 @@ class chdir():
 
     def __enter__(self):
         os.chdir(self.path)
+        ic(self.path)
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         os.chdir(self.orig_path)
