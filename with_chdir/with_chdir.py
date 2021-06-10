@@ -41,7 +41,7 @@ except ImportError:
 class chdir():
     def __init__(self, path):
         self.orig_path = Path(os.getcwd())
-        self.path = Path(path).resolve()
+        self.path = Path(os.fsdecode(path)).resolve()
 
     def __enter__(self):
         os.chdir(self.path)
