@@ -20,22 +20,12 @@
 
 
 import os
-import sys
+#import sys
 from pathlib import Path
 
 import click
-
-
-def eprint(*args, **kwargs):
-    if 'file' in kwargs.keys():
-        kwargs.pop('file')
-    print(*args, file=sys.stderr, **kwargs)
-
-
-try:
-    from icecream import ic  # https://github.com/gruns/icecream
-except ImportError:
-    ic = eprint
+from asserttool import eprint
+from asserttool import ic
 
 
 class chdir():
