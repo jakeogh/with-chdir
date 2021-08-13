@@ -24,20 +24,29 @@ import os
 from pathlib import Path
 
 import click
+import sh
 from asserttool import eprint
 from asserttool import ic
 
 
 class chdir():
-    def __init__(self, path):
+    def __init__(self,
+                 path,
+                 unwrite: bool = False,
+                 ):
         self.orig_path = Path(os.getcwd())
         self.path = Path(os.fsdecode(path)).resolve()
+        self.unwrite = unwrite
 
     def __enter__(self):
         os.chdir(self.path)
+        if self.unwrite:
+            sh.chmod('+w', '.')
         #ic(self.path)
 
     def __exit__(self, exc_type, exc_val, exc_tb):
+        if self.unwrite:
+            sh.chmod('-w', '.')
         os.chdir(self.orig_path)
 
 
