@@ -3,14 +3,18 @@
 
 import os
 from pathlib import Path
+from typing import Union
 
 import click
 import sh
+from epprint import epprint
 
 
 class chdir():
     def __init__(self,
                  path,
+                 *,
+                 verbose: Union[bool, int, float],
                  unwrite: bool = False,
                  ):
         self.orig_path = Path(os.getcwd())
@@ -19,6 +23,8 @@ class chdir():
 
     def __enter__(self):
         os.chdir(self.path)
+        if self.verbose:
+            epprint(f'{self.path=}')
         if self.unwrite:
             sh.chmod('+w', '.')
 
@@ -30,12 +36,14 @@ class chdir():
 
 @click.command()
 @click.argument("path", type=str, nargs=1)
+@click.argument('--verbose', is_flag=True)
 @click.pass_context
 def cli(ctx,
-        path,
+        path: str,
+        verbose: bool,
         ):
 
-    with chdir(path):
+    with chdir(path, verbose=verbose):
         os.system('pwd')
         os.system("ls -al")
 
