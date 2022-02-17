@@ -37,7 +37,7 @@ class chdir():
 
 @click.command()
 @click.argument("path", type=str, nargs=1)
-@click.argument('--verbose', is_flag=True)
+@click.option('--verbose', is_flag=True)
 @click.pass_context
 def cli(ctx,
         path: str,
