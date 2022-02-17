@@ -17,6 +17,7 @@ class chdir():
                  verbose: Union[bool, int, float],
                  unwrite: bool = False,
                  ):
+        self.verbose = verbose
         self.orig_path = Path(os.getcwd())
         self.path = Path(os.fsdecode(path)).resolve()
         self.unwrite = unwrite
@@ -40,7 +41,7 @@ class chdir():
 @click.pass_context
 def cli(ctx,
         path: str,
-        verbose: bool,
+        verbose: Union[bool, int, float],
         ):
 
     with chdir(path, verbose=verbose):
