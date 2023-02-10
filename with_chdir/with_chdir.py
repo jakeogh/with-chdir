@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf8 -*-
+from __future__ import annotations
 
 import os
 from pathlib import Path
-from typing import Union
 
 import click
 import sh
@@ -15,8 +15,8 @@ class chdir:
         self,
         path,
         *,
-        verbose: Union[bool, int, float],
         unwrite: bool = False,
+        verbose: bool | int | float = False,
     ):
         self.verbose = verbose
         self.orig_path = Path(os.getcwd())
@@ -43,9 +43,8 @@ class chdir:
 def cli(
     ctx,
     path: str,
-    verbose: Union[bool, int, float],
+    verbose: bool | int | float = False,
 ):
-
     with chdir(path, verbose=verbose):
         os.system("pwd")
         os.system("ls -al")
