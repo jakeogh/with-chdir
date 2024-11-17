@@ -16,17 +16,14 @@ class chdir:
         path,
         *,
         unwrite: bool = False,
-        verbose: bool | int | float = False,
     ):
-        self.verbose = verbose
         self.orig_path = Path(os.getcwd())
         self.path = Path(os.fsdecode(path)).resolve()
         self.unwrite = unwrite
 
     def __enter__(self):
         os.chdir(self.path)
-        if self.verbose:
-            epprint(f"{self.path=}")
+        epprint(f"with-chdir: {self.path=}")
         if self.unwrite:
             sh.chmod("+w", ".")
 
@@ -38,14 +35,13 @@ class chdir:
 
 @click.command()
 @click.argument("path", type=str, nargs=1)
-@click.option("--verbose", is_flag=True)
 @click.pass_context
 def cli(
     ctx,
     path: str,
-    verbose: bool | int | float = False,
+    verbose: bool = False,
 ):
-    with chdir(path, verbose=verbose):
+    with chdir(path):
         os.system("pwd")
         os.system("ls -al")
 
