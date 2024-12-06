@@ -23,7 +23,7 @@ class chdir:
 
     def __enter__(self):
         os.chdir(self.path)
-        epprint(f"with-chdir: {self.path=}")
+        # epprint(f"with-chdir: {self.path=}")
         if self.unwrite:
             sh.chmod("+w", ".")
 
