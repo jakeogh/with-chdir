@@ -1,1 +1,5 @@
-from .with_chdir import chdir
+"""
+isort:skip_file
+"""
+
+from .with_chdir import chdir as chdir
