@@ -10,6 +10,11 @@ import sh
 from epprint import epprint
 
 
+def func_test():
+    print("func_test()")
+    os.system("pwd")
+
+
 class chdir:
     def __init__(
         self,
@@ -44,5 +49,6 @@ def cli(
     with chdir(path):
         os.system("pwd")
         os.system("ls -al")
+        func_test()
 
     os.system("pwd")
